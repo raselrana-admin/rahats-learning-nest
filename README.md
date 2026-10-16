@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rahat's Learning Nest 🪺
 
-## Getting Started
+One place for Rahat to save his learning links: websites and videos for Math, English, Bangla, Science, Coding, General knowledge and more.
 
-First, run the development server:
+- Save a link with a title, subject and a short note
+- Filter by subject, search, and mark links as **✓ Learned**
+- Links are saved online (Supabase), so they show on every phone and computer
+- Works on mobile, with light and dark mode
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Built with Next.js, Tailwind CSS and Supabase.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run it on your computer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Copy `.env.example` to `.env.local` and fill in the two values (see below).
+2. Run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-## Learn More
+3. Open http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Name | Where to find it |
+| --- | --- |
+| `SUPABASE_URL` | Supabase dashboard → Project Settings → API → Project URL |
+| `SUPABASE_PUBLISHABLE_KEY` | Supabase dashboard → Project Settings → API Keys → Publishable key (`sb_publishable_...`) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+These are only used on the server (in `src/app/api`), never sent to the browser.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this folder to a GitHub repository.
+2. In Vercel, click **Add New → Project** and import the repository.
+3. Under **Environment Variables**, add `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`.
+4. Click **Deploy**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database
+
+The `links` table lives in the Supabase project **rahats-learning-nest**. The SQL that created it (with the 5 starter links) is in
+`supabase/migrations/`. To set up a fresh Supabase project, paste that file into Supabase → SQL Editor and click **Run**.
+
+There is no login: anyone with the website link can add, mark and remove links. The database only allows these actions. It
+checks that every link starts with `http://` or `https://` and that each subject is one of the 7 subjects.

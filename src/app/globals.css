@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
+/* Dark mode follows the data-theme attribute that the inline script in layout.tsx sets. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg: #fff8ee;
+  --surface: #ffffff;
+  --surface-2: #fdf1e1;
+  --text: #2a211b;
+  --muted: #6b5e54;
+  --border: #eadccb;
+  --brand: #b45309;
+  --brand-ink: #ffffff;
+  --brand-soft: #fde9c8;
+  --good: #15803d;
+  --good-ink: #ffffff;
+  --good-soft: #dcfce7;
+  --danger: #be123c;
+  --danger-ink: #ffffff;
+  --danger-soft: #ffe4e6;
+  --shadow: 0 1px 2px rgb(60 40 20 / 0.06), 0 4px 14px rgb(60 40 20 / 0.06);
+
+  /* One color set per subject: solid accent, soft tint, readable ink on the tint. */
+  --math: #2563eb; --math-soft: #dbeafe; --math-ink: #1e40af;
+  --english: #e11d48; --english-soft: #ffe4e6; --english-ink: #9f1239;
+  --bangla: #16a34a; --bangla-soft: #dcfce7; --bangla-ink: #166534;
+  --science: #9333ea; --science-soft: #f3e8ff; --science-ink: #6b21a8;
+  --coding: #ea580c; --coding-soft: #ffedd5; --coding-ink: #9a3412;
+  --gk: #0d9488; --gk-soft: #ccfbf1; --gk-ink: #115e59;
+  --other: #64748b; --other-soft: #f1f5f9; --other-ink: #334155;
+  --all: #b45309; --all-soft: #fde9c8; --all-ink: #7c2d12;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #16120f;
+  --surface: #211b17;
+  --surface-2: #2b241f;
+  --text: #f6efe8;
+  --muted: #b5a89c;
+  --border: #3d342d;
+  --brand: #fbbf24;
+  --brand-ink: #1c1206;
+  --brand-soft: rgb(251 191 36 / 0.16);
+  --good: #4ade80;
+  --good-ink: #052e12;
+  --good-soft: rgb(74 222 128 / 0.16);
+  --danger: #fb7185;
+  --danger-ink: #2b0710;
+  --danger-soft: rgb(251 113 133 / 0.16);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 14px rgb(0 0 0 / 0.25);
+
+  --math: #60a5fa; --math-soft: rgb(96 165 250 / 0.16); --math-ink: #bfdbfe;
+  --english: #fb7185; --english-soft: rgb(251 113 133 / 0.16); --english-ink: #fecdd3;
+  --bangla: #4ade80; --bangla-soft: rgb(74 222 128 / 0.15); --bangla-ink: #bbf7d0;
+  --science: #c084fc; --science-soft: rgb(192 132 252 / 0.17); --science-ink: #e9d5ff;
+  --coding: #fb923c; --coding-soft: rgb(251 146 60 / 0.16); --coding-ink: #fed7aa;
+  --gk: #2dd4bf; --gk-soft: rgb(45 212 191 / 0.15); --gk-ink: #99f6e4;
+  --other: #94a3b8; --other-soft: rgb(148 163 184 / 0.16); --other-ink: #e2e8f0;
+  --all: #fbbf24; --all-soft: rgb(251 191 36 / 0.16); --all-ink: #fde68a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-good: var(--good);
+  --color-good-ink: var(--good-ink);
+  --color-good-soft: var(--good-soft);
+  --color-danger: var(--danger);
+  --color-danger-ink: var(--danger-ink);
+  --color-danger-soft: var(--danger-soft);
+  --color-subject: var(--s);
+  --color-subject-soft: var(--s-soft);
+  --color-subject-ink: var(--s-ink);
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --shadow-card: var(--shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Any element with data-subject gets --s, --s-soft and --s-ink for that subject. */
+[data-subject="math"] { --s: var(--math); --s-soft: var(--math-soft); --s-ink: var(--math-ink); }
+[data-subject="english"] { --s: var(--english); --s-soft: var(--english-soft); --s-ink: var(--english-ink); }
+[data-subject="bangla"] { --s: var(--bangla); --s-soft: var(--bangla-soft); --s-ink: var(--bangla-ink); }
+[data-subject="science"] { --s: var(--science); --s-soft: var(--science-soft); --s-ink: var(--science-ink); }
+[data-subject="coding"] { --s: var(--coding); --s-soft: var(--coding-soft); --s-ink: var(--coding-ink); }
+[data-subject="gk"] { --s: var(--gk); --s-soft: var(--gk-soft); --s-ink: var(--gk-ink); }
+[data-subject="other"] { --s: var(--other); --s-soft: var(--other-soft); --s-ink: var(--other-ink); }
+[data-subject="all"] { --s: var(--all); --s-soft: var(--all-soft); --s-ink: var(--all-ink); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+dialog::backdrop {
+  background: rgb(20 12 6 / 0.55);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.pop-in {
+  animation: pop-in 0.25s ease-out backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
